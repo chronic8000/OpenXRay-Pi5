@@ -27,6 +27,8 @@
 
 #include <random>
 
+#include "xrCore/sse2neon_wrapper.h"
+#if 0
 #if defined(XR_ARCHITECTURE_X86) || defined(XR_ARCHITECTURE_X64) || defined(XR_ARCHITECTURE_E2K)
 #include <immintrin.h>
 #elif defined(XR_ARCHITECTURE_ARM) || defined(XR_ARCHITECTURE_ARM64)
@@ -37,6 +39,7 @@
 #include <xmmintrin.h>
 #else
 #error Add your platform here
+#endif
 #endif
 
 xr_unique_ptr<TaskManager> TaskScheduler;

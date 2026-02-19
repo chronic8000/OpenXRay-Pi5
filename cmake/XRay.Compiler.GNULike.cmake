@@ -116,7 +116,18 @@ endif()
 if (PROJECT_PLATFORM_ARM)
     add_compile_options(-mfpu=neon)
 elseif (PROJECT_PLATFORM_ARM64)
-    #add_compile_options()
+    add_compile_options(
+        -march=armv8.2-a+crc+simd
+        -mcpu=cortex-a76
+        -O3
+        -ffast-math
+    )
+    add_link_options("-Wl,-z,max-page-size=16384")
+    add_compile_definitions(
+        SSE2NEON_PRECISE_MINMAX=1
+        SSE2NEON_ARCH_AARCH64=1
+    )
+    include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Externals/sse2neon)
 elseif (PROJECT_PLATFORM_E2K)
     add_compile_options(-Wno-unknown-pragmas)
 elseif (PROJECT_PLATFORM_PPC)
@@ -152,7 +163,9 @@ if (NOT WIN32)
 endif()
 
 # Memory allocator option
-if (mimalloc_FOUND)
+if (PROJECT_PLATFORM_ARM64)
+    set(MEMORY_ALLOCATOR "standard" CACHE STRING "Use specific memory allocator (mimalloc/standard)" FORCE)
+elseif (mimalloc_FOUND)
     set(MEMORY_ALLOCATOR "mimalloc" CACHE STRING "Use specific memory allocator (mimalloc/standard)")
 else()
     set(MEMORY_ALLOCATOR "standard" CACHE STRING "Use specific memory allocator (mimalloc/standard)")

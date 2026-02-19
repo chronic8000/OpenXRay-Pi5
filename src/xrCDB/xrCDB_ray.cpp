@@ -4,6 +4,8 @@
 #include "xrCore/_fbox.h"
 #include "xrCDB.h"
 
+#include "xrCore/sse2neon_wrapper.h"
+#if 0
 #if defined(XR_ARCHITECTURE_X86) || defined(XR_ARCHITECTURE_X64) || defined(XR_ARCHITECTURE_E2K) || defined(XR_ARCHITECTURE_PPC64)
 #include <xmmintrin.h>
 #elif defined(XR_ARCHITECTURE_ARM) || defined(XR_ARCHITECTURE_ARM64)
@@ -12,6 +14,7 @@
 #include "sse2rvv/sse2rvv.h"
 #else
 #error Add your platform here
+#endif
 #endif
 
 namespace CDB
@@ -389,8 +392,8 @@ public:
     }
     void _stab(const AABBNoLeafNode* node)
     {
-        // Should help
-        _mm_prefetch((char*)node->GetNeg(), _MM_HINT_NTA);
+        // Chronic8000: God Tier L3 Hint for Pi 5
+        XRAY_PREFETCH_L3(node->GetNeg());
 
         // Actual ray/aabb test
         if constexpr (bUseSSE)

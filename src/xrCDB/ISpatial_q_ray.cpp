@@ -4,6 +4,8 @@
 #include "xrCore/Threading/Lock.hpp"
 #include "xrCore/Threading/ScopeLock.hpp"
 
+#include "xrCore/sse2neon_wrapper.h"
+#if 0
 #if defined(XR_ARCHITECTURE_X86) || defined(XR_ARCHITECTURE_X64) || defined(XR_ARCHITECTURE_E2K) || defined(XR_ARCHITECTURE_PPC64)
 #include <xmmintrin.h>
 #elif defined(XR_ARCHITECTURE_ARM) || defined(XR_ARCHITECTURE_ARM64)
@@ -12,6 +14,7 @@
 #include "sse2rvv/sse2rvv.h"
 #else
 #error Add your platform here
+#endif
 #endif
 
 extern Fvector c_spatial_offset[8];
@@ -333,6 +336,13 @@ public:
         float c_R = n_R / 2;
         for (u32 octant = 0; octant < 8; octant++)
         {
+#if defined(XR_ARCHITECTURE_ARM64)
+            // Prefetch children for better cache locality on ARM64 (e.g., Raspberry Pi 5)
+            // Prefetching the next few children in the loop
+            if (octant + 0 < 8 && N->children[octant + 0]) XRAY_PREFETCH_L3(N->children[octant + 0]);
+            if (octant + 1 < 8 && N->children[octant + 1]) XRAY_PREFETCH_L3(N->children[octant + 1]);
+            if (octant + 2 < 8 && N->children[octant + 2]) XRAY_PREFETCH_L3(N->children[octant + 2]);
+#endif
             if (0 == N->children[octant])
                 continue;
             Fvector c_C;

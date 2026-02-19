@@ -93,12 +93,7 @@ void _initialize_cpu()
 }
 
 // per-thread initialization
-#if defined(XR_ARCHITECTURE_ARM) || defined(XR_ARCHITECTURE_ARM64) || defined(XR_ARCHITECTURE_PPC64)
-#define _MM_SET_FLUSH_ZERO_MODE(mode)
-#define _MM_SET_DENORMALS_ZERO_MODE(mode)
-#else
-#include <xmmintrin.h>
-#endif
+#include "sse2neon_wrapper.h"
 
 static BOOL _denormals_are_zero_supported = TRUE;
 extern void __cdecl _terminate();

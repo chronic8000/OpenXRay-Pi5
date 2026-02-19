@@ -20,6 +20,8 @@
 
 #include "xrCore/Threading/TaskManager.hpp"
 
+#include "xrCore/sse2neon_wrapper.h"
+#if 0
 #if defined(XR_ARCHITECTURE_X86) || defined(XR_ARCHITECTURE_X64) || defined(XR_ARCHITECTURE_E2K) || defined(XR_ARCHITECTURE_PPC64)
 #include <xmmintrin.h>
 #elif defined(XR_ARCHITECTURE_ARM) || defined(XR_ARCHITECTURE_ARM64)
@@ -28,6 +30,7 @@
 #include "sse2rvv/sse2rvv.h"
 #else
 #error Add your platform here
+#endif
 #endif
 #endif
 

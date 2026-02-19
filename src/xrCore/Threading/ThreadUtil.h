@@ -23,6 +23,7 @@ enum class priority_level
     above_normal,
     highest,
     time_critical,
+    alife_rr, // Chronic8000: Raspberry Pi 5 SCHED_RR for A-Life
 };
 
 XRCORE_API priority_level GetCurrentThreadPriorityLevel();

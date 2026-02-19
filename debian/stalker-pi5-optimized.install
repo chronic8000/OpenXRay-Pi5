@@ -1,0 +1,21 @@
+bin/aarch64/Release/xrRender_GL.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrCDB.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrAICore.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrAPI.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrScriptEngine.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrEngine.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrCore.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrNetServer.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrSound.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrGame.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrUICore.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrParticles.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrLuaJIT.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrLuabind.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xrMaterialSystem.so usr/lib/aarch64-linux-gnu
+bin/aarch64/Release/xr_3da usr/games
+misc/openxray-wrapper.sh usr/games
+misc/rpi5_optimize.sh usr/games
+usr/share/applications/openxray_cop.desktop
+usr/share/applications/openxray_soc.desktop
+usr/share/applications/openxray_cs.desktop

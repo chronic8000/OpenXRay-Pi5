@@ -1,0 +1,29 @@
+#!/bin/bash
+# Chronic8000 S.T.A.L.K.E.R. Post-Install Silicon Tuner
+
+CONFIG_FILE="/boot/firmware/config.txt"
+CMDLINE_FILE="/boot/firmware/cmdline.txt"
+
+echo "Applying Homeless Tech Silicon Tweaks for S.T.A.L.K.E.R..."
+
+# 1. Inject SDRAM & GPU Overclock to config.txt
+if ! grep -q "SDRAM_BANKLOW=1" "$CONFIG_FILE"; then
+    echo "SDRAM_BANKLOW=1" >> "$CONFIG_FILE"
+    echo "gpu_freq=1000" >> "$CONFIG_FILE"
+    echo "* config.txt updated: SDRAM_BANKLOW=1, gpu_freq=1000"
+fi
+
+# 2. Inject NUMA & IOMMU Interleaving to cmdline.txt
+# We use sed to append to the existing line without duplicating
+if ! grep -q "numa=fake=8" "$CMDLINE_FILE"; then
+    sed -i 's/$/ numa=fake=8 iommu_dma_numa_policy=interleave/' "$CMDLINE_FILE"
+    echo "* cmdline.txt updated: numa=fake=8, iommu_dma_numa_policy=interleave"
+fi
+
+echo "------------------------------------------------------------"
+echo "OPTIMIZATION COMPLETE: A reboot is required to activate"
+echo "SDRAM Bank Interleaving and the 1000MHz GPU Boost."
+echo "------------------------------------------------------------"
+
+# Notify Debian system that a reboot is required
+touch /var/run/reboot-required

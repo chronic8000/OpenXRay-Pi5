@@ -165,7 +165,35 @@ priority_class GetCurrentProcessPriorityClass()
 
 void SetCurrentThreadPriorityLevel(priority_level prio)
 {
-
+#if defined(XR_PLATFORM_LINUX) && defined(XR_ARCHITECTURE_ARM64)
+    if (prio == priority_level::alife_rr)
+    {
+        struct sched_param param;
+        param.sched_priority = 10; // Slightly higher than normal
+        if (pthread_setschedparam(pthread_self(), SCHED_RR, &param) != 0)
+        {
+            Msg("! [Chronic8000] Failed to set SCHED_RR for A-Life. Check permissions/capabilities.");
+        }
+        else
+        {
+            Msg("* [Chronic8000] A-Life Thread elevated to SCHED_RR (Priority 10)");
+        }
+        return;
+    }
+#endif
+    // Default fallback
+    int policy;
+    struct sched_param param;
+    pthread_getschedparam(pthread_self(), &policy, &param);
+    
+    switch (prio)
+    {
+    case priority_level::lowest: param.sched_priority = sched_get_priority_min(policy); break;
+    case priority_level::highest: param.sched_priority = sched_get_priority_max(policy); break;
+    case priority_level::time_critical: param.sched_priority = sched_get_priority_max(policy); break;
+    default: param.sched_priority = (sched_get_priority_min(policy) + sched_get_priority_max(policy)) / 2; break;
+    }
+    pthread_setschedparam(pthread_self(), policy, &param);
 }
 
 void SetCurrentProcessPriorityClass(priority_class cls)

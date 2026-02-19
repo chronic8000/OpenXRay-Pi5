@@ -96,8 +96,14 @@ void CALifeUpdateManager::update_scheduled(bool init_ef)
 
 void CALifeUpdateManager::update()
 {
+    // Chronic8000: Elevate A-Life priority
+    Threading::SetCurrentThreadPriorityLevel(Threading::priority_level::alife_rr);
+
     update_switch();
     update_scheduled(false);
+
+    // Restore priority to normal (simplified for now, usually TaskManager threads return to default)
+    Threading::SetCurrentThreadPriorityLevel(Threading::priority_level::normal);
 }
 
 void CALifeUpdateManager::shedule_Update(u32 dt)

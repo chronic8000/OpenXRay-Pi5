@@ -777,6 +777,7 @@ void xrRender_initconsole()
 
     CMD2(CCC_tf_Aniso, "r__tf_aniso", &ps_r__tf_Anisotropic); // {1..16}
     CMD2(CCC_tf_MipBias, "r1_tf_mipbias", &ps_r__tf_Mipbias); // {-3 +3}
+    ps_r__tf_Mipbias = -0.5f; // Chronic8000: Default sharper mipmaps for Pi 5
     CMD2(CCC_tf_MipBias, "r2_tf_mipbias", &ps_r__tf_Mipbias); // {-3 +3}
 
     CMD4(CCC_Integer, "r__clear_models_on_unload", &ps_r__clear_models_on_unload, 0, 1); // Alundaio
