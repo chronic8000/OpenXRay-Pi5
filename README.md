@@ -18,25 +18,62 @@ This isn't just a generic compile. We've gone deep into the silicon to squeeze e
 
 ---
 
-## 📦 Installation
+## 📦 Installation & Uninstallation
 
 To experience the ultimate build, you need to install **both** generated Debian packages. The optimized engine package depends on the data package for branded assets and system-level configuration.
+
+### Installation
 
 1.  **Download the latest release** from the [GitHub Releases](https://github.com/chronic8000/OpenXRay-Pi5/releases) page.
 2.  **Install the packages**:
     ```bash
     sudo dpkg -i stalker-pi5-optimized.deb stalker-pi5-data.deb
-    sudo apt-get install -f  # To resolve any missing dependencies
+    sudo apt-get install -f  # To resolve any missing dependencies like numactl
     ```
 3.  **Run the Silicon Tuner** (Highly Recommended):
     ```bash
-    stalker-pi5-optimize
+    rpi5_optimize.sh
     ```
-    *Note: This will modify your `/boot/firmware/config.txt` for bandwidth optimizations and may require a reboot.*
+    *Note: This will apply silicon-level bandwidth and memory optimizations. A reboot is required for these settings to take effect.*
+
+### Uninstallation
+
+If you need to remove the "Silicon Whisperer" edition from your system:
+
+```bash
+sudo apt-get remove --purge stalker-pi5-optimized stalker-pi5-data
+sudo apt-get autoremove
+```
+*Note: This will remove the engine and branded assets. It will not automatically revert the `/boot/firmware/config.txt` changes made by the optimizer script; you should manually review those if you wish to revert to stock RPi5 settings.*
 
 ---
 
-## 🎮 Launching the Game
+## 🎮 Game Assets & Placement
+
+S.T.A.L.K.E.R.: Call of Pripyat assets are required to play. This repository only provides the optimized engine and configuration.
+
+### Required Files
+You need the following folders/files from a standard S.T.A.L.K.E.R. Call of Pripyat installation:
+*   `gamedata/` (Optional, if you have mods)
+*   `levels/`
+*   `localization/`
+*   `mp/`
+*   `resources/`
+*   `patches/`
+*   All `.db` files (e.g., `configs.db`, `resources.db`, etc.)
+
+### Where to Put Them
+After installing the `.deb` packages, place all the listed game assets into the following directory on your Raspberry Pi 5:
+
+```bash
+/usr/share/stalker-pi5/
+```
+
+*Note: You may need root permissions to copy files here (`sudo cp`). Alternatively, you can point the engine to a custom path using the `-fsltx` flag in the launcher.*
+
+---
+
+## 🚀 Launching the Game
 
 Simply click the **S.T.A.L.K.E.R.** icon in your Games menu, or run it from the terminal via the Silicon Whisperer wrapper:
 ```bash
