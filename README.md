@@ -95,7 +95,7 @@ stalker-pi5-wrapper
 
 Brought to you by **Homeless Tech**. 
 Check out the building process and support the project on YouTube:
-[Homeless Tech YouTube Channel](https://youtube.com/@HomelessTech)
+[Homeless Tech YouTube Channel](https://www.youtube.com/@HomelessTechnology)
 
 *Special thanks to the OpenXRay team for the incredible engine foundation.*
 

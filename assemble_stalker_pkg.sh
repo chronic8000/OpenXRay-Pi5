@@ -47,7 +47,7 @@ cat << 'EOD' > $DATA_PKG_ROOT/DEBIAN/control
 Package: stalker-pi5-data
 Version: 1.6.02-homeless-tech-1
 Architecture: all
-Maintainer: Homeless Tech <https://youtube.com/@HomelessTech>
+Maintainer: Homeless Tech <https://www.youtube.com/@HomelessTechnology>
 Section: games
 Priority: optional
 Description: Data assets for Homeless Tech Optimized OpenXRay Build
